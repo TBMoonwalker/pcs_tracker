@@ -1,0 +1,50 @@
+{
+    "tokens": [
+        {
+            "id": 1,
+            "token_name": "Safemoon",
+            "token_address": "0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3",
+            "token_pair": "0xeF967e3Da982ECc1c84bbe6053fD61Af2a65bB9a",
+            "token_currency": "BUSD",
+            "calculated_currency": "EUR",
+            "wallet": "###Your Wallet Address###",
+            "decimal_token0": 9,
+            "decimal_token1": 18,
+            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+        },
+        {
+            "id": 2,
+            "token_name": "GMR Finance",
+            "token_address": "0x0523215dcafbf4e4aa92117d13c6985a3bef27d7",
+            "token_pair": "0x37e12e2553A8E8f40F47eB48bA94285A6990F47e",
+            "token_currency": "BUSD",
+            "calculated_currency": "EUR",
+            "wallet": "###Your Wallet Address###",
+            "decimal_token0": 9,
+            "decimal_token1": 18,
+            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+        },
+        {
+            "id": 3,
+            "token_name": "Slothi",
+            "token_address": "0x5b9dbebbad94b8c6467af9e8a851bb120f9601c6",
+            "token_pair": "0x1c8894aA87cAB3108D034CB1E546C9B1e64924e1",
+            "token_currency": "WBNB",
+            "calculated_currency": "EUR",
+            "wallet": "###Your Wallet Address###",
+            "decimal_token0": 9,
+            "decimal_token1": 18,
+            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+        }
+    ],
+    "config": [
+        {
+            "bsc_api_key": "###Your API Key for BSCScan",
+            "currency_api_key": "###Your API Key for ###",
+            "currency": "EUR",
+            "pancakeswap_factory": "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
+            "bnb_busd_pair_address": "0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16",
+            "blockchain_url": "https://bsc-dataseed1.binance.org"
+        }
+    ]
+}
