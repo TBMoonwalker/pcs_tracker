@@ -18,6 +18,8 @@ For gathering the proper exchange rate an API key is needed. I use the free serv
 Just go to the link and enter your E-Mail. You should get an API-Key shortly.
 
 ## Installation
+Python must be installed!
+
 Download the ZIP File or \
 ```git clone https://github.com/TBMoonwalker/pcs_tracker.git```
 ### Required python packages

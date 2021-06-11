@@ -31,9 +31,10 @@ for conf in config['config']:
     currency = conf['currency']
     pancakeswap_factory = conf['pancakeswap_factory']
     bnb_busd_pair_address = conf['bnb_busd_pair_address']
+    refresh_interval = conf['refresh_interval']
 
 # Initialize database
-con = sqlite3.connect('pcs_chart.db')
+con = sqlite3.connect('pcs_tracker.db')
 c = con.cursor()
 
 # Connect to blockchain node
@@ -178,7 +179,7 @@ def main():
             create_table(i, price, tokencount, balance, profit, coord, token_history, price_history, balance_history, profit_history)
             
 
-        time.sleep(60)
+        time.sleep(refresh_interval)
 
 if __name__ == "__main__":
     main()
