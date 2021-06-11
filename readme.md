@@ -30,3 +30,6 @@ Install them with ```pip install```
 Copy the existing config-example.json to config.json and insert the relevant configuration. Any token which is listed on Pancakeswap should work just fine. The description, how to find the "Token pairs" and the decimal count of the token is described in this Reddit post: https://www.reddit.com/r/pancakeswap/comments/mwz72v/is_there_a_way_to_monitor_the_price_on_pancake/
 
 Token requests can also be communicated through the Github issues.
+
+## Run
+```python3 pcs_tracker.py```
