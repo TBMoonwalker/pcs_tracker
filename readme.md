@@ -1,5 +1,11 @@
 # Pancake Swap Crypto Terminal Tracker
-This tracker is based on Python and should run on Linux, Windows and OSX (tested). It gives you useful information about your Tokens bought on Pancakeswap.
+This tracker is based on Python and should run on Linux, Windows and OSX (tested). It gives you useful information about your Tokens bought on Pancakeswap. For example:
+- Actual value of the token (calculated directly over BSCScan)
+- Amount of your tokens (gathered through your wallet information)
+- Additional token count (will be added to the token amount as well) - for tokens which have the Tokenomics included
+- Actual balance based on the price and the total amount of your tokens
+- Profit of your investment
+- Percentual changes based on the initial timestamp of the tracker start (will be saved in a sqlite database on your filesystem)
 
 ![screenshot](screenshot.png)
 
