@@ -1,6 +1,8 @@
 # Pancake Swap Crypto Terminal Tracker
 This tracker is based on Python and should run on Linux, Windows and OSX (tested). It gives you useful information about your Tokens bought on Pancakeswap.
 
+![screenshot](screenshot.png)
+
 ## Prerequisites
 ### API Key for BSCScan
 You need an account for BSCScan to create an API key, needed for the tracker. You can create an account on https://bscscan.com \
