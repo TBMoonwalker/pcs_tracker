@@ -10,7 +10,7 @@
             "wallet": "###Your Wallet Address###",
             "decimal_token0": 9,
             "decimal_token1": 18,
-            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+            "investment": "### Money you invested in your Currency (USD/EUR) - should be the same as the calculated curreny attribute ###"
         },
         {
             "id": 2,
@@ -22,7 +22,7 @@
             "wallet": "###Your Wallet Address###",
             "decimal_token0": 9,
             "decimal_token1": 18,
-            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+            "investment": "### Money you invested in your Currency (USD/EUR) - should be the same as the calculated curreny attribute ###"
         },
         {
             "id": 3,
@@ -34,7 +34,7 @@
             "wallet": "###Your Wallet Address###",
             "decimal_token0": 9,
             "decimal_token1": 18,
-            "investment": "### Your bought amount in your Currency (USD/EUR)###"
+            "investment": "### Money you invested in your Currency (USD/EUR) - should be the same as the calculated curreny attribute ###"
         }
     ],
     "config": [
