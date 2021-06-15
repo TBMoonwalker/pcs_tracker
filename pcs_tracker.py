@@ -45,9 +45,14 @@ except:
 
 def init_database():
     with con:
+        # Price table
         c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='price'")
         if c.fetchone()[0] != 1:
             c.execute("CREATE TABLE price (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, date DATE, price FLOAT, tokenamount FLOAT, balance INT, profit INT, token_id INT)")
+        # Rate table
+        c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='rate'")
+        if c.fetchone()[0] != 1:
+            c.execute("CREATE TABLE rate (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, rate FLOAT, count INT)")
 
 def set_history(token_id, price, tokenamount, balance, profit):
     with con:
@@ -63,13 +68,38 @@ def set_history(token_id, price, tokenamount, balance, profit):
 def calc_diff(value, history, percent=False):
     if percent:
         diff = ((value - history) / history) * 100
+        if (value < 0 and history < 0):
+            diff = (-diff)
     else:
         diff = value - history
     return round(diff, 2)
 
 def exchange_rate(currency):
+    count = 60 / refresh_interval
+    rate = 0
     url = "https://free.currconv.com/api/v7/convert?q=USD_{0}&compact=ultra&apiKey={1}".format(currency, currency_api_key)
-    return (float)(requests.get(url).json()["USD_{0}".format(currency)])
+
+    with con:
+        c.execute(f"SELECT count FROM rate WHERE count='{count}'")
+        rows = c.fetchone()
+        if rows is None:
+            c.execute(f"SELECT rate FROM rate")
+            rows = c.fetchone()
+            if rows is None:
+                rate = (float)(requests.get(url).json()["USD_{0}".format(currency)])
+                c.execute(f"INSERT INTO rate(rate, count) VALUES ('{rate}', '1')")
+            else:
+                c.execute(f"SELECT rate, count FROM rate")
+                column = [d[0] for d in c.description]
+                data = [dict(zip(column, row)) for row in c.fetchall()]
+                rate = data[0]['rate']
+                count = data[0]['count'] + 1
+                c.execute(f"UPDATE rate set rate='{rate}', count='{count}'")
+        else:
+            rate = (float)(requests.get(url).json()["USD_{0}".format(currency)])
+            c.execute(f"UPDATE rate set rate='{rate}', count='1'")
+    
+    return rate
 
 def token_price(pair_address, decimal_token0, decimal_token1):
     contract = blockchain.eth.contract(address=pair_address, abi=pancakeswap_factory_abi);
