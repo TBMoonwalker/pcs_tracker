@@ -101,11 +101,17 @@ def exchange_rate(currency):
     
     return rate
 
-def token_price(pair_address, decimal_token0, decimal_token1):
+def token_price(pair_address, decimal_token0, decimal_token1, token_invert):
     contract = blockchain.eth.contract(address=pair_address, abi=pancakeswap_factory_abi);
     reserve = contract.functions.getReserves().call()
-    reserve_token0 = reserve[0]
-    reserve_token1 = reserve[1]
+    
+    if (token_invert):
+        reserve_token0 = reserve[1]
+        reserve_token1 = reserve[0]
+    else:
+        reserve_token0 = reserve[0]
+        reserve_token1 = reserve[1]
+    
     token_price = (reserve_token1 / 10 ** decimal_token1) / (reserve_token0 / 10 ** decimal_token0)
     return token_price
 
@@ -183,17 +189,21 @@ def main():
 
         for i in config['tokens']:
             coord = coord + 5
-            tokencount = round(int(asyncio.run(token_amount(i['token_address'], i['wallet']))) / 1000000000)
+            if (i['decimal_token0'] == 3):
+                tokencount = round(int(asyncio.run(token_amount(i['token_address'], i['wallet']))) / 1000)
+            elif (i['decimal_token0'] == 9):
+                tokencount = round(int(asyncio.run(token_amount(i['token_address'], i['wallet']))) / 1000000000)
+            else:
+                tokencount = round(int(asyncio.run(token_amount(i['token_address'], i['wallet']))) / 1000000000000000000)
             
             if (i['token_currency'] == "BUSD"):
-                tprice = token_price(i["token_pair"], i["decimal_token0"], i["decimal_token1"])
+                tprice = token_price(i["token_pair"], i["decimal_token0"], i["decimal_token1"], i["token_invert"])
                 price = '%.18f' % tprice
             # convert WBNB to BUSD
             else:
-                bprice = token_price(bnb_busd_pair_address, 18, 18)
-                tprice = token_price(i["token_pair"], i["decimal_token0"], i["decimal_token1"])
+                bprice = token_price(bnb_busd_pair_address, 18, 18, False)
+                tprice = token_price(i["token_pair"], i["decimal_token0"], i["decimal_token1"], i["token_invert"])
                 price = '%.18f' % (bprice * tprice)
-                   
             balance = int( (float(price) * tokencount) * rate)
             profit = int(balance - int(i['investment']))
             
@@ -202,6 +212,9 @@ def main():
             # Calculate differences since start
             if history:  
                 token_history = calc_diff(tokencount, history[0]['tokenamount'])
+                if (token_history < 0):
+                    token_history = 0
+
                 price_history = calc_diff(float(price), history[0]['price'], percent=True)
                 balance_history = calc_diff(balance, history[0]['balance'], percent=True)
                 profit_history = calc_diff(profit, history[0]['profit'], percent=True)
